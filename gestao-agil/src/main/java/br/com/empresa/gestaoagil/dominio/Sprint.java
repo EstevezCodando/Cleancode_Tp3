@@ -49,6 +49,26 @@ public class Sprint {
         return Collections.unmodifiableList(tarefas);
     }
 
+    /**
+     * Método puro: calcula o resumo do progresso da sprint
+     * sem alterar nenhum estado interno.
+     */
+    public ResumoProgressoSprint calcularResumoProgresso() {
+        int total = tarefas.size();
+        int concluidas = (int) tarefas.stream()
+                .filter(t -> t.getStatus() == StatusTarefa.DONE)
+                .count();
+
+        double percentual = (total == 0) ? 0.0 : (concluidas * 100.0) / (double) total;
+
+        return new ResumoProgressoSprint(
+                this.nome,
+                total,
+                concluidas,
+                percentual
+        );
+    }
+
     @Override
     public String toString() {
         return "Sprint{" +
