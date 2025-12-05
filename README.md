@@ -8,7 +8,7 @@ A entidade central escolhida no Sistema de Gestão de Projetos Ágil foi a class
 https://github.com/EstevezCodando/Cleancode_Tp3/blob/main/gestao-agil/src/main/java/br/com/empresa/gestaoagil/dominio/Projeto.java
 que representa o agregado principal e controla o ciclo de vida de sprints e seu próprio status. Ela foi modelada como **imutável**, aplicando princípios de Clean Code e SOLID, em especial o _Single Responsibility Principle_ e o _Open-Closed Principle_.
 
-### Ex.1. Atributos Imutáveis
+### Ex.1.1. Atributos Imutáveis
 
 Todos os atributos são declarados como `private final`, garantindo que não possam ser reatribuídos após a construção do objeto.
 
@@ -23,7 +23,7 @@ private final List<Sprint> sprints;
 
 Isso significa que, uma vez criado, o estado interno da entidade não sofre mutação.
 
-### Ex.2. Construtor Privado e Cópias Defensivas
+### Ex.1.2. Construtor Privado e Cópias Defensivas
 
 O construtor recebe uma lista de sprints e **cria uma cópia imutável**, evitando que referências externas modifiquem seu conteúdo.
 
@@ -34,7 +34,7 @@ this.sprints = Collections.unmodifiableList(copiaSprints);
 
 Esse padrão impede alterações acidentais no conteúdo da entidade por código externo.
 
-### Ex.3. Ausência de Setters
+### Ex.1.3. Ausência de Setters
 
 Nenhum método na classe altera seus campos. Não existem métodos do tipo:
 
@@ -44,7 +44,7 @@ public void setNome(String nome) { ... }  // não existe
 
 Isso reforça que o estado é imutável.
 
-### Ex.4. Métodos que “Alteram” o Estado Retornam uma Nova Instância
+### Ex.1.4. Métodos que “Alteram” o Estado Retornam uma Nova Instância
 
 Quando é necessário representar uma modificação, como adicionar uma sprint ou alterar o status, a classe retorna **um novo Projeto**.
 
@@ -84,7 +84,7 @@ public Projeto alterarStatus(StatusProjeto novoStatus) {
 
 Mais uma vez, nenhuma mutação ocorre.
 
-### Ex.5. Por que isso evita problemas de concorrência?
+### Ex.1.5. Por que isso evita problemas de concorrência?
 
 Quando múltiplos usuários ou threads acessam simultaneamente um objeto imutável, nenhuma delas pode alterar seu estado interno. Assim, todos veem sempre a mesma versão do objeto, eliminando problemas clássicos como:
 
@@ -110,7 +110,7 @@ Projeto comNovaSprint = projeto.adicionarSprint(sprintX);
 
 Ambas operam sobre o mesmo `projeto` original, mas produzem instâncias **independentes**, sem risco de interferência.
 
-### Ex.6. Benefícios
+### Ex.1.6. Benefícios
 
 - Facilita depuração e testes.
 - Garante consistência interna forte.
